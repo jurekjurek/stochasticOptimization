@@ -48,7 +48,9 @@ function iterationValues = RunNewtonRaphson(polynomialCoefficients, startingPoin
 
         count = count + 1; 
 
+        % if we are at more than 1000 iterations, break. 
         if count > 1000
+            disp('Algorithm did not converge. No minimal value found.');
             break;
         end
 
