@@ -13,7 +13,7 @@ function PlotIterations(polynomialCoefficients, iterationValues)
 
     % plot polynomial 
     subplot(1,2,2);
-    x = linspace(-1, 1, 100);
+    x = linspace(-1.7, 1.7, 100);
     y = zeros(size(x)); % Initialize an array to store the results
     
     for i = 1:length(x)
@@ -24,7 +24,7 @@ function PlotIterations(polynomialCoefficients, iterationValues)
     plot(x, y);
     xlabel('x');
     ylabel('y');
-    title('Polynomial of interest');
+    
 
     % Specify the coordinates of the point to mark
     disp(iterationValues(end));
@@ -33,7 +33,13 @@ function PlotIterations(polynomialCoefficients, iterationValues)
     
     hold on; % Ensure the scatter point doesn't overwrite the existing plot
     scatter(x_point, y_point, 50, 'r', 'filled'); % 'r' for red color, 'filled' for a filled marker
+    
+    label = 'xMin'; % Replace with your desired label
+    text(x_point, y_point, label, 'VerticalAlignment', 'top', 'HorizontalAlignment', 'right');
+
     hold off;
+
+    title('Polynomial of interest');
 end
 
 
