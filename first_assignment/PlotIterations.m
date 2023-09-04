@@ -2,44 +2,68 @@
 % using NewtonRaphsonStep (if any iterates were generated).
 
 function PlotIterations(polynomialCoefficients, iterationValues)
-    % plot convergence of xJ to minimal value 
-    subplot(1,2,1);
-    plot(iterationValues);
-    xlabel('Iterations');
-    ylabel('xJ');    
-    % title('Convergence to minimial value; ');
-
-    title(['Convergence of xJ ', newline, 'Minimal value: ' num2str(iterationValues(end))]);
-
-    % plot polynomial 
-    subplot(1,2,2);
-    x = linspace(-1.7, 1.7, 100);
-    y = zeros(size(x)); % Initialize an array to store the results
     
-    for i = 1:length(x)
-        y(i) = GetPolynomialValue(x(i), polynomialCoefficients);
+    % plot polynomial 
+    % subplot(1,2,1);
+    xPolynomial = linspace(-1.7, 2, 100);
+    yPolynomial = zeros(size(xPolynomial)); 
+    
+    % use function GetPolynomialValue instead of built in function to
+    % determine y coordinates
+    for i = 1:length(xPolynomial)
+        yPolynomial(i) = GetPolynomialValue(xPolynomial(i), polynomialCoefficients);
     end
 
+    % Adjust figure size
+    figure;
+    fig = gcf; % Get the current figure handle
+    fig.Position = [100, 100, 800, 400]; % [left, bottom, width, height]
     
-    plot(x, y);
+    % Adjust plot position within the figure
+    ax = gca; % Get the current axes handle
+    ax.Position = [0.1, 0.1, 0.85, 0.8]; % [left, bottom, width, height]
+
+    plot(xPolynomial, yPolynomial);
     xlabel('x');
     ylabel('y');
-    
 
-    % Specify the coordinates of the point to mark
-    disp(iterationValues(end));
-    x_point = iterationValues(end); % Replace with the x-coordinate of the point
-    y_point = GetPolynomialValue(x_point, polynomialCoefficients); % Calculate the y-coordinate
     
-    hold on; % Ensure the scatter point doesn't overwrite the existing plot
-    scatter(x_point, y_point, 50, 'r', 'filled'); % 'r' for red color, 'filled' for a filled marker
     
-    label = 'xMin'; % Replace with your desired label
-    text(x_point, y_point, label, 'VerticalAlignment', 'top', 'HorizontalAlignment', 'right');
+    yIterationValues = zeros(size(iterationValues))
+
+    for i = 1:length(iterationValues)
+        yIterationValues(i) = GetPolynomialValue(iterationValues(i), polynomialCoefficients)
+    end
+    
+    hold on;
+    scatter(iterationValues, yIterationValues, 50, 'blue', 'filled');
 
     hold off;
 
-    title('Polynomial of interest');
+    % mark minimum in plot 
+    xMin = iterationValues(end);
+    yMin = GetPolynomialValue(xMin, polynomialCoefficients);
+
+    hold on;
+    scatter(xMin, yMin, 50, 'r', 'filled');
+    
+    % label point in plot
+    label = 'xMin';
+    text(xMin, yMin, label, 'VerticalAlignment', 'top', 'HorizontalAlignment', 'right');
+
+    hold off;
+    title(['Polynomial of interest, ', newline, 'Minimal value: ' num2str(xMin)]);
+
+    % plot convergence of xJ to minimal value 
+    % if not(isnan(xMin))
+    %     subplot(1,2,2);
+    %     plot(iterationValues);
+    %     xlabel('Iterations');
+    %     ylabel('xJ');    
+    % 
+    %     title(['Convergence of xJ ', newline, 'Minimal value: ' num2str(xMin)]);
+    % end
+
 end
 
 

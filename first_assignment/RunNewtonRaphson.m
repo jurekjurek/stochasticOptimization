@@ -6,16 +6,6 @@
 % CAN be plotted are returned. Thus, in some cases (again, the case of
 % a first-order polynomial is an example) there may be no points to plot.
 
-% do this with a while loop 
-
-% load(StepNewtonRaphson)
-% load ('DifferentiatePolynomial.m')
-% 
-% clc, clearvars;
-
-% import StepNewtonRaphson.*;
-% import DifferentiatePolynomial.*;
-% import GetPolynomialValue.*;
 
 function iterationValues = RunNewtonRaphson(polynomialCoefficients, startingPoint, tolerance)
     iterationValues = [];
@@ -36,15 +26,13 @@ function iterationValues = RunNewtonRaphson(polynomialCoefficients, startingPoin
 
         fPrimeAtPoint = GetPolynomialValue(xJ, fPrime);
         fDoublePrimeAtPoint = GetPolynomialValue(xJ, fDoublePrime);
-        
+
         xJ = StepNewtonRaphson(xJ, fPrimeAtPoint, fDoublePrimeAtPoint);
 
+        % iteratively append xJ to iterationValues list
         iterationValues =  [iterationValues, xJ];
 
         distance = abs(xJ - iterationValues(end-1));
-        
-        disp('distance is: ');
-        disp(distance);
 
         count = count + 1; 
 
@@ -58,7 +46,5 @@ function iterationValues = RunNewtonRaphson(polynomialCoefficients, startingPoin
 
     disp('number of iterations:');
     disp(count);
-
-    % return;
         
 end

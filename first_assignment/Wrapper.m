@@ -7,7 +7,7 @@
 clc, clearvars
 % import RunNewtonRaphson
 
-polynomialCoefficients = [0 -1 1 1]%[10 -2 -1 1];
+polynomialCoefficients = [10 -2 -1 1]; % [0 -1 1 1]
 startingPoint = 2;
 tolerance = 0.0001;
 iterationValues = RunNewtonRaphson(polynomialCoefficients, startingPoint, tolerance);
