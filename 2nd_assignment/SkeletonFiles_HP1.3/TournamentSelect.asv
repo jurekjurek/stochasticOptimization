@@ -1,0 +1,52 @@
+
+% fitnesslist stores the fitness values for all involved individuals 
+
+
+function selectedIndividualIndex = TournamentSelect(fitnessList, tournamentProbability, tournamentSize)
+    populationSize = length(fitnessList);
+
+    % generalization involves: picking tournamentSize amount of individuals
+    % from the fitnessList and picking the *one* with the highest fitness
+
+    candidateList = zeros(tournamentSize);
+
+    for i = 1:tournamentSize
+        candidateList(i) = 1 + fix(rand * populationSize);
+    end
+
+
+    % randomly pick two individuals, iTmp1, iTmp2 from the population
+    iTmp1 = 1 + fix(rand * populationSize);
+    iTmp2 = 1 + fix(rand * populationSize);
+    r = rand;
+
+    while true 
+
+        [maxValue, maxIndex] = max(fitnessList(candidateList));
+        bestIndividual = candidateList(maxIndex);
+
+        if (r < pTournament)
+        
+        end
+        if (r >= pTournament)
+        end
+    end
+
+
+    
+    % select individual with higher fitness
+    if (r < pTournament)
+        if (fitness(iTmp1) > fitness(iTmp2))
+            iSelected = iTmp1;
+        else
+            iSelected = iTmp2;
+        end
+    % select individual with lower fitness 
+    else
+        if (fitness(iTmp1) > fitness(iTmp2))
+            iSelected = iTmp2;
+        else
+            iSelected = iTmp1;
+        end
+    end
+end
