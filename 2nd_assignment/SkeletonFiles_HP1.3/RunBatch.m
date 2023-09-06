@@ -30,6 +30,9 @@ for i = 1:numberOfRuns
 end
 
 
+pMutValues = [0 0.001 0.005 0.01 0.02 0.05 0.1 0.3 0.5 1];
+
+
 % ... and here (pMut > 0.02)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,3 +47,26 @@ std002 = sqrt(var(maximumFitnessList002));
 sprintf('PMut = 0.02: Median: %0.10f, Average: %0.10f, STD: %0.10f', median002, average002, std002)
 
 % ... and here (pMut > 0.02)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
