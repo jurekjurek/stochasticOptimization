@@ -5,7 +5,6 @@
 % program can handle all cases.
 %
 clc, clearvars
-% import RunNewtonRaphson
 
 polynomialCoefficients = [10 -2 -1 1]; % [0 -1 1 1]
 startingPoint = 2;

@@ -16,8 +16,8 @@ clc, clearvars;
 
 muValues = [0.1 1 10 100 1000];
 eta = 0.0001;
-xStart = [1,1]; % [Specify as a vector with two components, see Step 3 of the problem formulation];
-gradientTolerance = 1E-3;
+xStart = [1,2]; % [Specify as a vector with two components, see Step 3 of the problem formulation];
+gradientTolerance = 1E-6;
 
 x1List = zeros(size(muValues));
 x2List = zeros(size(muValues));
@@ -32,11 +32,17 @@ for i = 1:length(muValues)
 end
 
 % plot the values of x1 and x2 as functions of mu 
-semilogx(muValues, x1List);
+% semilogx(muValues, x1List);
+semilogx(muValues, x1List, 'r', muValues, x2List, 'b');
 
-hold on; 
-plot(muValues, x2List);
-hold off; 
+
+% Add labels for each curve using legend
+legend('x_1', 'x_2');
+
+
+% hold on; 
+% semilogx(muValues, x2List);
+% hold off; 
 
 
 

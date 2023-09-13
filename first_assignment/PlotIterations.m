@@ -3,9 +3,8 @@
 
 function PlotIterations(polynomialCoefficients, iterationValues)
     
-    % plot polynomial 
-    % subplot(1,2,1);
-    xPolynomial = linspace(-1.7, 2, 100);
+    % plot polynomial
+    xPolynomial = linspace(-1.7, 2.2, 100);
     yPolynomial = zeros(size(xPolynomial)); 
     
     % use function GetPolynomialValue instead of built in function to
@@ -14,21 +13,12 @@ function PlotIterations(polynomialCoefficients, iterationValues)
         yPolynomial(i) = GetPolynomialValue(xPolynomial(i), polynomialCoefficients);
     end
 
-    % Adjust figure size
-    figure;
-    fig = gcf; % Get the current figure handle
-    fig.Position = [100, 100, 800, 400]; % [left, bottom, width, height]
-    
-    % Adjust plot position within the figure
-    ax = gca; % Get the current axes handle
-    ax.Position = [0.1, 0.1, 0.85, 0.8]; % [left, bottom, width, height]
-
     plot(xPolynomial, yPolynomial);
     xlabel('x');
     ylabel('y');
 
     
-    
+    % plot iterationValues
     yIterationValues = zeros(size(iterationValues))
 
     for i = 1:length(iterationValues)
@@ -53,16 +43,6 @@ function PlotIterations(polynomialCoefficients, iterationValues)
 
     hold off;
     title(['Polynomial of interest, ', newline, 'Minimal value: ' num2str(xMin)]);
-
-    % plot convergence of xJ to minimal value 
-    % if not(isnan(xMin))
-    %     subplot(1,2,2);
-    %     plot(iterationValues);
-    %     xlabel('Iterations');
-    %     ylabel('xJ');    
-    % 
-    %     title(['Convergence of xJ ', newline, 'Minimal value: ' num2str(xMin)]);
-    % end
 
 end
 

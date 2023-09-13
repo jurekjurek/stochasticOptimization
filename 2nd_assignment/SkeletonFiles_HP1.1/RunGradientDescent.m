@@ -13,7 +13,7 @@ function x = RunGradientDescent(xStart, mu, eta, gradientTolerance)
 
     count = 0; 
 
-    while abs(tempGradient) > gradientTolerance
+    while abs(ComputeGradient(xJ, mu)) > gradientTolerance
         tempGradient = ComputeGradient(xJ, mu);
     
         % disp(tempGradient);

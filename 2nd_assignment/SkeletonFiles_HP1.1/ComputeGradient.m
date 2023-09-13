@@ -6,7 +6,7 @@ function gradF = ComputeGradient(x,mu)
     x_2 = x(2);
 
     firstComponent = 2* (x_1 - 1) + 4 * mu * x_1 * (x_1^2 + x_2^2 -1);
-    secondComponent = 4* (x_2 - 1) + 4 * mu * x_2 * (x_1^2 + x_2^2 -1);
+    secondComponent = 4* (x_2 - 2) + 4 * mu * x_2 * (x_1^2 + x_2^2 -1);
 
     gradF = [firstComponent, secondComponent];
 end 
