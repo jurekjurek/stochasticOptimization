@@ -31,18 +31,13 @@ for i = 1:length(muValues)
  x2List(i) = x(2); 
 end
 
-% plot the values of x1 and x2 as functions of mu 
-% semilogx(muValues, x1List);
+% plot the values of x1 and x2 as functions of mu, semilogarithmic
 semilogx(muValues, x1List, 'r', muValues, x2List, 'b');
+xlabel('\mu')
+ylabel('x')
 
-
-% Add labels for each curve using legend
 legend('x_1', 'x_2');
 
-
-% hold on; 
-% semilogx(muValues, x2List);
-% hold off; 
 
 
 

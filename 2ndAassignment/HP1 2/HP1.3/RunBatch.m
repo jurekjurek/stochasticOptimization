@@ -19,20 +19,14 @@ crossoverProbability = 0.8;        % Do NOT change
 
 % Define more runs here (pMut < 0.02) ...
 
-mutationProbability = 0.02;
-sprintf('Mutation rate = %0.5f', mutationProbability)
-
-
 
 pMutValues = [0 0.01 0.02 0.04 0.07 0.1 0.3 0.7 0.8 0.9];
-
-disp(length(pMutValues));
 
 medianPerformanceList = zeros(1, length(pMutValues));
 
 for iMutValues = 1:length(pMutValues)
 
-    mutationProbability = pMutValues(iMutValues)
+    mutationProbability = pMutValues(iMutValues);
 
     % initialize list to store fitness for each run, to determine median
     maximumFitnessList = zeros(numberOfRuns,1);
@@ -50,19 +44,17 @@ end
 %% Summary of results
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Add more results summaries here (pMut < 0.02) ...
-
 % average002 = mean(maximumFitnessList002);
 % median002 = median(maximumFitnessList002);
 % std002 = sqrt(var(maximumFitnessList002));
 % sprintf('PMut = 0.02: Median: %0.10f, Average: %0.10f, STD: %0.10f', median002, average002, std002)
 
-% semilogx(pMutValues, medianPerformanceList);
 plot(pMutValues, medianPerformanceList);
 xlabel('Mutation Probability');
 ylabel('Median Performance over 100 runs');
-title('Evolution of performance with p_{mu}')
+title('Evolution of performance with p_{mu}');
 
+disp('Median Performance over 100 runs for different values of p_mu:');
 disp(medianPerformanceList);
 
 

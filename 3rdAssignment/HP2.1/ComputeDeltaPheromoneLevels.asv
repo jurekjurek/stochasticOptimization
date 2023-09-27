@@ -1,0 +1,23 @@
+function deltaPheromoneLevel = ComputeDeltaPheromoneLevels(pathCollection, pathLengthCollection)
+    
+    pathCollectionSize = size(pathCollection);
+
+    numberOfAnts = pathCollectionSize(1);
+    numberOfCities = pathCollectionSize(2); 
+
+    deltaPheromoneLevel = zeros(numberOfCities, numberOfCities);
+
+    for iAnt = 1:numberOfAnts
+            
+        deltaTauForOneAnt = zeros(numberOfCities, numberOfCities);
+        for i = 1:numberOfCities
+            for j = 1:numberOfCities
+                deltaTauForOneAnt(i,j) = 
+            end
+        end
+        
+        deltaPheromoneLevel = deltaPheromoneLevel + deltaTauForOneAnt; 
+    end
+
+    deltaPheromoneLevel = True; 
+end

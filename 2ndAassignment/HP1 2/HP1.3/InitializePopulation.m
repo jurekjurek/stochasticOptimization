@@ -3,8 +3,6 @@
 % population is a matrix. 
 function population = InitializePopulation(populationSize, numberOfGenes)
 
-    % the rows in the population matrix will be the genes and each column
-    % will correspond to one individual 
     population = zeros(populationSize, numberOfGenes);
     for i = 1:populationSize
         for j = 1:numberOfGenes
