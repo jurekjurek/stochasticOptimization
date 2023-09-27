@@ -25,8 +25,8 @@ function nextNode = GetNode(tabuList, pheromoneLevel, visibility, alpha, beta)
         end
     end
 
-    % disp('thisNode in GetNode:'); 
-    % disp(thisNode);
+    disp('thisNode in GetNode:'); 
+    disp(thisNode);
 
 
 
@@ -92,7 +92,4 @@ function nextNode = GetNode(tabuList, pheromoneLevel, visibility, alpha, beta)
         end
     end
     
-
-    
-
 end

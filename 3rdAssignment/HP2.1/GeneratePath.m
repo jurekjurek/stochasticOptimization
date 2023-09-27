@@ -15,7 +15,9 @@ function path = GeneratePath(pheromoneLevel, visibility, alpha, beta)
     for iCity = 2:numberOfCities
         nextNode = GetNode(tabuList, pheromoneLevel, visibility, alpha, beta); 
         tabuList(iCity) = nextNode; 
-
+        disp('nextNode in generatePath');
+        disp(nextNode);
+        % disp(tabuList);
     end
 
     path = tabuList; 
