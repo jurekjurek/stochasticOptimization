@@ -1,0 +1,14 @@
+
+
+bestChromosome = zeros(1, 10);
+
+data = LoadFunctionData(); 
+
+yEstimateList = zeros(1, length(data));
+
+for iDataPoint = 1:length(data)
+        
+    
+
+end
+

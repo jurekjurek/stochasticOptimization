@@ -12,12 +12,12 @@ numberOfConstantRegisters = 3;
 
 numberOfOperators = 4; 
 
-numberOfGenerations = 1; 
+numberOfGenerations = 40; 
 
 
 data = LoadFunctionData();
 
-population = InitializePopulation(populationSize, 16, 4, numberOfOperators, numberOfVariableRegisters, numberOfConstantRegisters);
+population = InitializePopulation(populationSize, 16, 4, numberOfOperators, numberOfVariableRegisters, numberOfConstantRegisters)
 % works
 
 for generation = 1:numberOfGenerations
@@ -29,7 +29,6 @@ for generation = 1:numberOfGenerations
         chromosome = population(i).Chromosome;
         fitnessList(i) = EvaluateIndividual(chromosome, data, numberOfVariableRegisters, numberOfConstantRegisters);
         if (fitnessList(i) > maximumFitness ) 
-            disp('bestChromosome updatet');
             maximumFitness  = fitnessList(i);
             iBestIndividual = i;
             bestChromosome = chromosome;
@@ -71,22 +70,8 @@ end
 
 disp(maximumFitness);
 
-test = EvaluateIndividual(bestChromosome, data, numberOfVariableRegisters, numberOfConstantRegisters);
-disp(test);
 
-% 
-% PLOTTTING
-% 
 
-yEstimateList = zeros(1, length(data));
-
-for iDataPoint = 1:length(data)
-        
-    yTemp = DecodeChromosome(data(iDataPoint), bestChromosome, numberOfVariableRegisters, numberOfConstantRegisters);
-
-    yEstimateList(iDataPoint) = yTemp; 
-
-end
 
 % plotting 
 x = data(:, 1)';
@@ -106,7 +91,7 @@ title('Two Series of Data');
 legend('y_{true}', 'y_{estimate}');
 
 
-return;
+
 
 
 % safe best chromosome 

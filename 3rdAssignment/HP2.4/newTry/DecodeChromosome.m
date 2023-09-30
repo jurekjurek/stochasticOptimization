@@ -1,28 +1,42 @@
-% inputs:  
-% binaray chromosome
-% number of variables that are to be extracted from one chromosome 
-% maximum variable value a, where x takes values in [-a, a]
-function x = DecodeChromosome(chromosome,numberOfVariables,maximumVariableValue);
 
-    % returns size of second dimension of chromosome array 
-    % corresponding to number of columns, that's what we want 
-    nGenes = size(chromosome, 2);
 
-    k = fix(nGenes / numberOfVariables);
+function yEstimate = DecodeChromosome(dataPoint, chromosome, numberOfVariableRegisters, numberOfConstantRegisters)
 
-    % x is a vector of the size numberOfVariables
-    x = zeros(1, numberOfVariables);
+    numberOfGenes = length(chromosome);
 
-    % iterate over all dimensions
-    for i = 1:numberOfVariables
-        x(i) = 0.0;
-        for j = 1:k
-            x(i) = x(i) + chromosome(j + (i-1)* k) * 2^(-j);
+    xK = dataPoint(1);
+
+    % PREPARE REGISTERS 
+
+    unionOfRegisters = zeros(1, numberOfConstantRegisters+numberOfVariableRegisters); 
+
+    unionOfRegisters(1) = xK; 
+
+    for j = 1:4:numberOfGenes
+
+        operatorIndex = chromosome(j); 
+        destinationIndex = chromosome(j+1); 
+        operandOneIndex = chromosome(j+2); 
+        operandTwoIndex = chromosome(j+3); 
+
+        
+        if operatorIndex == 1
+            unionOfRegisters(destinationIndex) = unionOfRegisters(operandOneIndex) + unionOfRegisters(operandTwoIndex);
+        elseif operatorIndex == 2
+            unionOfRegisters(destinationIndex) = unionOfRegisters(operandOneIndex) - unionOfRegisters(operandTwoIndex);
+        elseif operatorIndex == 3
+            unionOfRegisters(destinationIndex) = unionOfRegisters(operandOneIndex) * unionOfRegisters(operandTwoIndex);
+        elseif operatorIndex == 4
+            % if the denominator is zero, we skip the operation... 
+            if unionOfRegisters(operandTwoIndex) ~= 0
+                unionOfRegisters(destinationIndex) = unionOfRegisters(operandOneIndex) / unionOfRegisters(operandTwoIndex);
+            end
         end
-        x(i) = -maximumVariableValue + 2 * maximumVariableValue * x(i) / (1 - 2^(-k));
+          
+
 
     end
 
-end
+    yEstimate = unionOfRegisters(1);
 
 

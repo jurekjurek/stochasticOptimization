@@ -13,8 +13,8 @@ function [newIndividual1, newIndividual2] = Cross(individual1, individual2)
     upperLimit1 = chromosomeLength1/4 -1;
 
 
-    crossoverPoint1Chromosome1 = 4 * randi([1, upperLimit1])
-    crossoverPoint2Chromosome1 = 4 * randi([1, upperLimit1])
+    crossoverPoint1Chromosome1 = 4 * randi([1, upperLimit1]);
+    crossoverPoint2Chromosome1 = 4 * randi([1, upperLimit1]);
 
     % make sure secondPoint is larger than first point 
     if crossoverPoint2Chromosome1 < crossoverPoint1Chromosome1
@@ -25,8 +25,8 @@ function [newIndividual1, newIndividual2] = Cross(individual1, individual2)
 
     upperLimit2 = chromosomeLength2/4 -1;
 
-    crossoverPoint1Chromosome2 = 4 * randi([1, upperLimit2])
-    crossoverPoint2Chromosome2 = 4 * randi([1, upperLimit2])
+    crossoverPoint1Chromosome2 = 4 * randi([1, upperLimit2]);
+    crossoverPoint2Chromosome2 = 4 * randi([1, upperLimit2]);
 
     if crossoverPoint2Chromosome2 < crossoverPoint1Chromosome2
         tempPoint = crossoverPoint2Chromosome2; 
@@ -37,9 +37,9 @@ function [newIndividual1, newIndividual2] = Cross(individual1, individual2)
     % cutSectionChromosome1 = crossoverPoint2Chromosome1 - crossoverPoint1Chromosome1;
     % cutSectionChromosome2 = crossoverPoint2Chromosome2 - crossoverPoint1Chromosome2;
 
-    partI = individual1(1:crossoverPoint1Chromosome1)
-    partII = individual2(crossoverPoint1Chromosome2+1 : crossoverPoint2Chromosome2)
-    partIII = individual1(crossoverPoint2Chromosome1+1 : end)
+    partI = individual1(1:crossoverPoint1Chromosome1);
+    partII = individual2(crossoverPoint1Chromosome2+1 : crossoverPoint2Chromosome2);
+    partIII = individual1(crossoverPoint2Chromosome1+1 : end);
 
 
     if crossoverPoint1Chromosome2 == crossoverPoint2Chromosome2
