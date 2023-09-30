@@ -63,6 +63,7 @@ while (minimumPathLength > targetPathLength)
   path = GeneratePath(pheromoneLevel, visibility, alpha, beta);   % To do: Write the GeneratePath function
   pathLength = GetPathLength(path,cityLocation);                  % To do: Write the GetPathLength function
   if (pathLength < minimumPathLength)
+    bestPath = path; 
     minimumPathLength = pathLength;
     disp(sprintf('Iteration %d, ant %d: path length = %.5f',iIteration,k,minimumPathLength));
     PlotPath(connection,cityLocation,path);
@@ -85,9 +86,6 @@ while (minimumPathLength > targetPathLength)
  end
 
 end
-
-
-
 
 
 
