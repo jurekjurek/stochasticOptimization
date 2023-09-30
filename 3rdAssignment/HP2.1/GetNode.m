@@ -25,8 +25,8 @@ function nextNode = GetNode(tabuList, pheromoneLevel, visibility, alpha, beta)
         end
     end
 
-    disp('thisNode in GetNode:'); 
-    disp(thisNode);
+    % disp('thisNode in GetNode:'); 
+    % disp(thisNode);
 
 
 
@@ -36,10 +36,10 @@ function nextNode = GetNode(tabuList, pheromoneLevel, visibility, alpha, beta)
         jNotInTabuList = ~any(tabuList == jCity);
         if jNotInTabuList
             % disp('test');
-            temporaryTau = pheromoneLevel(thisNode, jCity);
+            temporaryTau = pheromoneLevel(jCity, thisNode);
             factorOne = temporaryTau^alpha;
             % disp(temporaryTau);
-            temporaryVisibility = visibility(thisNode, jCity); 
+            temporaryVisibility = visibility(jCity, thisNode); 
             factorTwo = temporaryVisibility^beta;
             % disp(temporaryVisibility);
             % disp(normalizationFactor);
@@ -58,7 +58,7 @@ function nextNode = GetNode(tabuList, pheromoneLevel, visibility, alpha, beta)
         iNotInTabuList = ~any(tabuList == iNextNode);
 
         if iNotInTabuList
-            temporaryNumerator = pheromoneLevel(thisNode, iNextNode)^alpha * visibility(thisNode, iNextNode)^beta;
+            temporaryNumerator = pheromoneLevel(iNextNode, thisNode)^alpha * visibility(iNextNode, thisNode)^beta;
             temporaryProbability = temporaryNumerator/normalizationFactor;
     
             probabilityList(listFillingCounter) = temporaryProbability;

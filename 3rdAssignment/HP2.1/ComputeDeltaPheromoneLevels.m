@@ -18,7 +18,8 @@ function deltaPheromoneLevel = ComputeDeltaPheromoneLevels(pathCollection, pathL
             indexNextNode = pathForThisAnt(i+1);
 
             % from j to i, so from this node to next node 
-            deltaTauForOneAnt(indexThisNode, indexNextNode) = 1/pathLengthForThisAnt; 
+            % deltaTauForOneAnt(indexThisNode, indexNextNode) = 1/pathLengthForThisAnt; 
+            deltaTauForOneAnt(indexNextNode, indexThisNode) = 1/pathLengthForThisAnt; 
         end
         
         deltaPheromoneLevel = deltaPheromoneLevel + deltaTauForOneAnt; 

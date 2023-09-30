@@ -16,7 +16,7 @@ numberOfCities = length(cityLocation);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Parameters
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-numberOfAnts = 50;  %% Changes allowed
+numberOfAnts = 10;  %% Changes allowed
 alpha = 1.0;        %% Changes allowed
 beta = 3.0;         %% Changes allowed
 rho = 0.3;          %% Changes allowed

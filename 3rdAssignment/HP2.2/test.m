@@ -1,18 +1,6 @@
-% This file implements a PSO algorithm in Matlab
-% STEP I - initialize positions and velocities of particles 
-% STEP II - Evaluate each particle in the swarm, compute f(x_i) where x_i is the
-% position of the i-th particle
-% STEP III - Update the best position of each particle and the global best position 
-% STEP IV - Update particle velocities and positions, restrict velocities 
-% and remember intertia weight. 
-% STEP V - if termination condition has been reached, quit, else return to step II
-
-
 clc, clearvars; 
 
-% typically between 20-40
 numberOfParticles = 30; 
-
 numberOfDimensions = 2; 
 xMax = 5; 
 xMin = -5; 
@@ -31,10 +19,6 @@ const2 = 2;
 
 numberOfIterations = 10000; 
 
-% 
-% STEP I - initialize positions, velocities, bestpositions
-% 
-
 [positions, velocities] = InitializePositionVelocities(numberOfParticles, numberOfDimensions, xMin, xMax, alpha, deltaT);
 
 % the best position in the beginning is simply the position 
@@ -44,6 +28,8 @@ bestPositionsList = positions;
 bestPositionInSwarm = 1000 * zeros(1, numberOfDimensions); 
 
 for iteration = 1:numberOfIterations
+
+
     % 
     % STEP II - evaluate 
     % 

@@ -3,9 +3,11 @@ clc, clearvars;
 
 pheromoneLevel = InitializePheromoneLevels(50, 0.1);
 
-cityLocation = LoadCityLocations();
+cityLocation = LoadTestCityLocations();
 
-visibility = GetVisibility(cityLocation);
+visibility = GetVisibility(cityLocation)
+
+return; 
 
 numberOfCities = 50;
 numberOfAnts = 50;
