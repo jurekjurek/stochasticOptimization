@@ -48,13 +48,14 @@ for j = 1:4:numberOfGenes
 end
 
 yEstimate = unionOfRegisters{1};
+unionOfRegisters{2}
+unionOfRegisters{3}
 
-
-disp('Final function: ')
+disp('function, I hope...')
 disp(yEstimate);
 
 % so, the function we are looking for, is: 
-% (x*(x^2 - x)+1) / (x*(x*x-x) +1 + x^2*(x^2-x))
+
 
 
 

@@ -12,7 +12,7 @@ numberOfConstantRegisters = 3;
 
 numberOfOperators = 4; 
 
-numberOfGenerations = 2000; 
+numberOfGenerations = 5000; 
 
 minNumberOfInstructions = 5; 
 maxNumberOfInstructions = 25; 
@@ -25,9 +25,13 @@ population = InitializePopulation(populationSize, minNumberOfInstructions, maxNu
 
 globalCostList = zeros(1, numberOfGenerations);
 
+globalMaximumFitness = 0;
+
 for generation = 1:numberOfGenerations
 
-    
+    if mod(generation, 100) == 0
+        fprintf('%d percent done \n', fix(generation/numberOfGenerations*100));
+    end
 
     fitnessList = zeros(1, populationSize);
     maximumFitness  = 0.0;
@@ -35,11 +39,21 @@ for generation = 1:numberOfGenerations
     for i = 1:populationSize
         chromosome = population(i).Chromosome;
         fitnessList(i) = EvaluateIndividual(chromosome, data, numberOfVariableRegisters, numberOfConstantRegisters);
+
+        % in this generation
         if (fitnessList(i) > maximumFitness ) 
             % disp('bestChromosome updatet');
             maximumFitness  = fitnessList(i);
             iBestIndividual = i;
             bestChromosome = chromosome;
+        end
+
+        % over all generations 
+        if (fitnessList(i) > globalMaximumFitness)
+            disp("executed at generation");
+            disp(generation)
+            globalMaximumFitness = fitnessList(i);
+            globalBestChromosome = chromosome; 
         end
     end
     
@@ -76,10 +90,10 @@ for generation = 1:numberOfGenerations
 
 end
 
-disp(maximumFitness);
+disp(globalMaximumFitness);
 
-test = EvaluateIndividual(bestChromosome, data, numberOfVariableRegisters, numberOfConstantRegisters);
-disp(test);
+% test = EvaluateIndividual(bestChromosome, data, numberOfVariableRegisters, numberOfConstantRegisters);
+% disp(test);
 
 % 
 % PLOTTTING
@@ -94,7 +108,7 @@ yEstimateList = zeros(1, length(data));
 
 for iDataPoint = 1:length(data)
         
-    yTemp = DecodeChromosome(data(iDataPoint), bestChromosome, numberOfVariableRegisters, numberOfConstantRegisters);
+    yTemp = DecodeChromosome(data(iDataPoint), globalBestChromosome, numberOfVariableRegisters, numberOfConstantRegisters);
 
     yEstimateList(iDataPoint) = yTemp; 
 
@@ -125,7 +139,7 @@ legend('y_{true}', 'y_{estimate}');
 filename = 'BestChromosome.mat';
 
 % Save the array to a MAT file
-save(filename, 'bestChromosome');
+save(filename, 'globalBestChromosome');
         
 
 
