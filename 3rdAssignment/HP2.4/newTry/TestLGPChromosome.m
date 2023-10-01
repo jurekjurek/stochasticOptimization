@@ -38,7 +38,7 @@ plot(x, yEstimateList, 'o', 'LineWidth', 2, 'MarkerSize', 2);
 % Add labels, title, and legend
 xlabel('X-axis');
 ylabel('Y-axis');
-title('Two Series of Data');
+title('Approximation of a dataseries with LGP');
 legend('y_{true}', 'y_{estimate}');
 
 

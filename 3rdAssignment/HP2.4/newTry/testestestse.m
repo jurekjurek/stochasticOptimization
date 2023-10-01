@@ -1,12 +1,32 @@
-arrya = zeros(1, 10); 
-
-for i = 1:10
-    arrya(i) = i;
-
-end
-
-b = arrya(1:4)
-c = arrya(4:7)
-d = arrya(7:end)
 
 
+
+clc, clearvars;
+
+data = LoadFunctionData(); 
+
+populationSize = 2;
+
+numberOfVariableRegisters = 3; 
+numberOfConstantRegisters = 3; 
+
+numberOfOperators = 4; 
+
+numberOfGenerations = 100; 
+
+minNumberOfInstructions = 3; 
+maxNumberOfInstructions = 3; 
+
+
+population = InitializePopulation(populationSize, minNumberOfInstructions, maxNumberOfInstructions, numberOfOperators, numberOfVariableRegisters, numberOfConstantRegisters)
+% for i = 1:length(data)
+%     DecodeChromosome(data(i, :), population.Chromosome, numberOfVariableRegisters, numberOfConstantRegisters)
+% end
+
+% tempFitness = EvaluateIndividual(population.Chromosome, data, numberOfVariableRegisters, numberOfConstantRegisters)
+
+% [newOne, newTwo] = CrossOver(population(1).Chromosome, population(2).Chromosome);
+
+oldIndividual = population(1).Chromosome
+
+newIndividual = Mutate(oldIndividual, 1, numberOfOperators, numberOfVariableRegisters, numberOfConstantRegisters)

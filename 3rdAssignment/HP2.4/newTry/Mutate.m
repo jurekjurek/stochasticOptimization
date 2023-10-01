@@ -2,10 +2,9 @@ function mutatedIndividual = Mutate(individual, mutationProbability, numberOfOpe
     nGenes = size(individual, 2);
     mutatedIndividual = individual;
     
-    for j = 1:4:nGenes
+    for j = 1:nGenes
         r = rand;
         if (r < mutationProbability)
-            mutatedIndividual(j) = 1 - individual(j);
             % operatos
             if mod(j-1, 4) == 0
                 mutatedIndividual(j) = randi([1, numberOfOperators]);

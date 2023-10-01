@@ -1,17 +1,19 @@
-function [newIndividual1, newIndividual2] = Cross(individual1, individual2)
+function [newIndividual1, newIndividual2] = CrossOver(individual1, individual2)
     
     chromosomeLength1 = length(individual1);
     chromosomeLength2 = length(individual2);
 
-    if chromosomeLength1 == 4 || chromosomeLength2 == 4
-        newIndividual1 = individual1; 
-        newIndividual2 = individual2; 
-        return; 
+    if chromosomeLength1 == 4
+        upperLimit1 = 1; 
+    else
+        upperLimit1 = chromosomeLength1/4 -1;
     end
 
-
-    upperLimit1 = chromosomeLength1/4 -1;
-
+    if chromosomeLength2 == 4
+        upperLimit2 = 1; 
+    else 
+        upperLimit2 = chromosomeLength2/4 -1; 
+    end
 
     crossoverPoint1Chromosome1 = 4 * randi([1, upperLimit1]);
     crossoverPoint2Chromosome1 = 4 * randi([1, upperLimit1]);
@@ -23,7 +25,7 @@ function [newIndividual1, newIndividual2] = Cross(individual1, individual2)
         crossoverPoint1Chromosome1 = tempPoint; 
     end
 
-    upperLimit2 = chromosomeLength2/4 -1;
+    
 
     crossoverPoint1Chromosome2 = 4 * randi([1, upperLimit2]);
     crossoverPoint2Chromosome2 = 4 * randi([1, upperLimit2]);
@@ -45,9 +47,6 @@ function [newIndividual1, newIndividual2] = Cross(individual1, individual2)
     if crossoverPoint1Chromosome2 == crossoverPoint2Chromosome2
         newIndividual1 = [partI, partIII]; 
     else
-        disp(size(partI));
-        disp(size(partII));
-        disp(length(partIII));
         newIndividual1 = [partI, partII, partIII]; 
 
     end

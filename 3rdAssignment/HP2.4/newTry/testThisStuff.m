@@ -1,26 +1,33 @@
 clearvars, clc; 
 
 tournamentProbability = 0.75;
-crossoverProbability = 0.8;  
-mutationProbability = 0.02;
+crossoverProbability = 0.2;  
+mutationProbability = 0.04;
 
 
-populationSize = 50;
+populationSize = 100;
 
 numberOfVariableRegisters = 3; 
 numberOfConstantRegisters = 3; 
 
 numberOfOperators = 4; 
 
-numberOfGenerations = 1; 
+numberOfGenerations = 250000; 
 
+minNumberOfInstructions = 5; 
+maxNumberOfInstructions = 25; 
 
 data = LoadFunctionData();
 
-population = InitializePopulation(populationSize, 16, 4, numberOfOperators, numberOfVariableRegisters, numberOfConstantRegisters);
+population = InitializePopulation(populationSize, minNumberOfInstructions, maxNumberOfInstructions, numberOfOperators, numberOfVariableRegisters, numberOfConstantRegisters);
 % works
 
+
+globalCostList = zeros(1, numberOfGenerations);
+
 for generation = 1:numberOfGenerations
+
+    
 
     fitnessList = zeros(1, populationSize);
     maximumFitness  = 0.0;
@@ -29,14 +36,14 @@ for generation = 1:numberOfGenerations
         chromosome = population(i).Chromosome;
         fitnessList(i) = EvaluateIndividual(chromosome, data, numberOfVariableRegisters, numberOfConstantRegisters);
         if (fitnessList(i) > maximumFitness ) 
-            disp('bestChromosome updatet');
+            % disp('bestChromosome updatet');
             maximumFitness  = fitnessList(i);
             iBestIndividual = i;
             bestChromosome = chromosome;
         end
     end
     
-    
+    globalCostList(generation) = maximumFitness; 
     
     % evaluate individual works
     
@@ -44,13 +51,13 @@ for generation = 1:numberOfGenerations
     
     temporaryPopulation = population;  
     for i = 1:2:populationSize
-        i1 = TournamentSelect(fitnessList,tournamentProbability,2);
-        i2 = TournamentSelect(fitnessList,tournamentProbability,2);
+        i1 = TournamentSelect(fitnessList,tournamentProbability,5);
+        i2 = TournamentSelect(fitnessList,tournamentProbability,5);
         r = rand;
         if (r < crossoverProbability) 
             individual1 = population(i1).Chromosome;
             individual2 = population(i2).Chromosome;
-            [newIndividual1, newIndividual2] = Cross(individual1, individual2);
+            [newIndividual1, newIndividual2] = CrossOver(individual1, individual2);
             temporaryPopulation(i).Chromosome = newIndividual1;
             temporaryPopulation(i+1).Chromosome = newIndividual2;
         else
@@ -78,6 +85,11 @@ disp(test);
 % PLOTTTING
 % 
 
+figure(1);
+plot(globalCostList)
+% 
+% return; 
+
 yEstimateList = zeros(1, length(data));
 
 for iDataPoint = 1:length(data)
@@ -89,6 +101,7 @@ for iDataPoint = 1:length(data)
 end
 
 % plotting 
+figure(2);
 x = data(:, 1)';
 y = data(:, 2)';
 
@@ -106,7 +119,6 @@ title('Two Series of Data');
 legend('y_{true}', 'y_{estimate}');
 
 
-return;
 
 
 % safe best chromosome 

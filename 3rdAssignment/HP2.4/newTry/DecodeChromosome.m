@@ -4,13 +4,16 @@ function yEstimate = DecodeChromosome(dataPoint, chromosome, numberOfVariableReg
 
     numberOfGenes = length(chromosome);
 
-    xK = dataPoint(1);
+    xK = dataPoint(1, 1);
 
     % PREPARE REGISTERS 
 
     unionOfRegisters = zeros(1, numberOfConstantRegisters+numberOfVariableRegisters); 
 
     unionOfRegisters(1) = xK; 
+    unionOfRegisters(4) = 1; 
+    unionOfRegisters(5) = 3; 
+    unionOfRegisters(6) = -1;
 
     for j = 1:4:numberOfGenes
 
@@ -31,8 +34,7 @@ function yEstimate = DecodeChromosome(dataPoint, chromosome, numberOfVariableReg
             if unionOfRegisters(operandTwoIndex) ~= 0
                 unionOfRegisters(destinationIndex) = unionOfRegisters(operandOneIndex) / unionOfRegisters(operandTwoIndex);
             end
-        end
-          
+        end          
 
 
     end

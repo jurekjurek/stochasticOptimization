@@ -12,9 +12,9 @@ function fitness = EvaluateIndividual(chromosome, data, numberOfVariableRegister
     % we iterate over the data and evaluate a y for every x 
     for i = 1:numberOfDataPoints
 
-        dataPoint = data(i);
+        dataPoint = data(i, :);
 
-        yK = dataPoint(2);
+        yK = data(i, 2);
 
         estimateY = DecodeChromosome(dataPoint, chromosome, numberOfVariableRegisters, numberOfConstantRegisters);
 
@@ -24,6 +24,7 @@ function fitness = EvaluateIndividual(chromosome, data, numberOfVariableRegister
         totalErrorIterative = totalErrorIterative + tempError; 
 
         if isnan(tempError)
+            disp('NAN!!');
             disp(estimateY);
             disp(yK);
         end
