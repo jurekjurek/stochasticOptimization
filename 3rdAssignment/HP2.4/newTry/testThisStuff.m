@@ -12,7 +12,7 @@ numberOfConstantRegisters = 3;
 
 numberOfOperators = 4; 
 
-numberOfGenerations = 250000; 
+numberOfGenerations = 2000; 
 
 minNumberOfInstructions = 5; 
 maxNumberOfInstructions = 25; 
