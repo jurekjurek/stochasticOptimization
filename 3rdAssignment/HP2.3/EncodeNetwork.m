@@ -5,4 +5,10 @@
 
 function chromosome = EncodeNetwork(wIH, wHO, wMax)
 
+    wIHFlattened = reshape(wIH.', 1, []);
+    wHOFlattened = reshape(wHO.', 1, []);
+
+    chromosome = [wIHFlattened, wHOFlattened];
+
+
 

@@ -6,14 +6,26 @@
 % we have two matrices, one corresponding to weights between in and hidden 
 % the other one between hidden and out 
 
-clc, clearvars; 
+% clc, clearvars; 
 
-numberOfHiddenNeurons = 10;
-numberOfInputs = 5;
-numberOfOutputs = 2; 
 
-weightsInputToHiddenLayer = ones(numberOfHiddenNeurons, numberOfInputs+1)
 
-weightsHiddenToOutputLayer = ones(numberOfOutputs, numberOfHiddenNeurons+1)
+function [wIH, wHO] = DecodeChromosome(chromosome, nIn, nHidden, nOut, wMax)
+    % wIH = ones(nHidden, nIn+1);
+    % 
+    % wHO = ones(nOut, nHidden+1);
 
-function [wIH, wHO] = DecodeChromosome(chromosome, nIn, nHidden, nOut, wMax);
+    cutPoint = (nIn+1) * nHidden; 
+
+    chromosomePartI = chromosome(1:cutPoint);
+    chromosomePartII = chromosome(cutPoint+1:end);
+
+    wIHTransposed = reshape(chromosomePartI, [nIn+1, nHidden]);
+    wHOTransposed = reshape(chromosomePartII, [nHidden+1, nOut]);
+    
+    wIH = wIHTransposed.';
+    wHO = wHOTransposed.';
+    
+    
+
+end
