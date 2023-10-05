@@ -1,7 +1,7 @@
 
+clc, clearvars; 
 
-
-populationSize = 500;              % Do NOT change
+populationSize = 10;               % Do NOT change
 maximumVariableValue = 5;          % Do NOT change: (x_i in [-a,a], where a = maximumVariableValue)
 numberOfGenes = 50;                % Do NOT change
 numberOfVariables = 2;  	       % Do NOT change
@@ -10,14 +10,15 @@ tournamentSize = 2;                % Changes allowed
 tournamentProbability = 0.75;      % Changes allowed (= pTour)
 crossoverProbability = 0.8;        % Changes allowed (= pCross)
 mutationProbability = 0.02;        % Changes allowed. (Note: 0.02 <=> 1/numberOfGenes)
-numberOfGenerations = 2000;        % Changes allowed.
+numberOfGenerations = 200;           % Changes allowed.
 
+% neural net parameters
 nIn = 3; 
 nOut = 2; 
 nHidden = 6; 
 
 
-% nn specific stuff
+% truck specific stuff
 iDataSet = 1; 
 deltaT = 0.25;  
 
@@ -28,6 +29,7 @@ pP = 1;
 mTruck = 20000;
 tBreak = 500;
 tAmb = 283; 
+deltaTBreak = tBreak - tAmb; 
 tMax = 750;
 tau = 30;
 cH = 40;
@@ -37,7 +39,8 @@ initialGearPosition = 7;
 maxVelocity = 25; 
 minVelocity = 1;
 
-
+lowerWeightBound = -8; 
+upperWeightBound = 8; 
 
 maximumFitness  = 0;
 
@@ -45,17 +48,19 @@ maximumFitness  = 0;
 
 % generate a population of chromosomes corresponding to weights in neural
 % networks
-population = InitializePopulation(populationSize, nIn, nOut, nHidden);
+population = InitializePopulation(populationSize, nIn, nOut, nHidden, lowerWeightBound, upperWeightBound);
 
 
 for generation = 1:numberOfGenerations
-    maximumFitness  = 0.0;
+    % maximumFitness  = 0.0;
+    disp(maximumFitness);
     fitnessList = zeros(1,populationSize);
     for i = 1:populationSize
         chromosome = population(i,:);
-        fitnessList(i) = EvaluateNN(chromosome, iDataSet, deltaT, pP, mTruck, tBreak, tAmb, tMax, tau, cH, cB, initialVelocity, initialGearPosition, maxVelocity, minVelocity);
+        fitnessList(i) = EvaluateNN(chromosome, nIn, nHidden, nOut, iDataSet, deltaT, pP, mTruck, tBreak, tAmb, tMax, tau, cH, cB, initialVelocity, initialGearPosition, maxVelocity, minVelocity);
         if (fitnessList(i) > maximumFitness ) 
             maximumFitness  = fitnessList(i);
+            bestChromosome = chromosome; 
             iBestIndividual = i;
         end
     end
@@ -85,4 +90,12 @@ for generation = 1:numberOfGenerations
     population = temporaryPopulation;
 
 end
+
+disp(maximumFitness);
+
+
+% Save the array to a .m file
+save('BestChromosome.m', 'bestChromosome');
+
+
 

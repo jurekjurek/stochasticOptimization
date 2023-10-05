@@ -5,14 +5,14 @@
 % Essentially, at every timestep we calculate Tb, then v and then put this
 % all togehter in the neural network 
 
-function globalFitnessValue = EvaluateNN(chromosome, iDataSet, deltaT, pP, mTruck, tBreak, tAmb, tMax, tau, cH, cB, initialVelocity, initialGearPosition, maxVelocity, minVelocity)
-    totalDistanceTraveled = 0; 
-    velocity = initialVelocity;  
-    currentGear = initialGearPosition; 
+function globalFitnessValue = EvaluateNN(chromosome, nIn, nHidden, nOut, iDataSet, deltaT, pP, mTruck, deltaTBreak, tAmb, tMax, tau, cH, cB, initialVelocity, initialGearPosition, maxVelocity, minVelocity)
+    % totalDistanceTraveled = 0; 
+    % velocity = initialVelocity;  
+    % currentGear = initialGearPosition; 
 
-    [wIH, wHO] = DecodeChromosome(chromosome, 3, 3, 2, 2); 
+    [wIH, wHO] = DecodeChromosome(chromosome, nIn, nHidden, nOut, 8); 
 
-    velocityOverTotalSlope = 0;
+    % velocityOverTotalSlope = 0;
 
     iterationCounter = 0;
     
@@ -22,39 +22,54 @@ function globalFitnessValue = EvaluateNN(chromosome, iDataSet, deltaT, pP, mTruc
         iSlopeMax = 5; 
     end
 
+    
+
     globalFitnessList = zeros(1, 10); 
 
     for iSlope = 1:iSlopeMax
+
+        totalDistanceTraveled = 0; 
+        velocity = initialVelocity;  
+        currentGear = initialGearPosition; 
+    
+        [wIH, wHO] = DecodeChromosome(chromosome, nIn, nHidden, nOut, 8); 
+    
+        velocityOverTotalSlope = 0;
+
+        counterForGear = 0; 
 
         while totalDistanceTraveled < 1000
     
             alpha = GetSlopeAngle(totalDistanceTraveled, iSlope, iDataSet);
     
             if pP < 0.01
-                tBreak = tBreak - tBreak/tau * deltaT;
+                deltaTBreak = deltaTBreak - deltaTBreak/tau * deltaT;
     
             else
-                tBreak = cH * pP * deltaT; 
+                deltaTBreak = deltaTBreak + cH * pP * deltaT; 
             end
     
-    
+            tBreak = tAmb + deltaTBreak;
+
             velocity = TruckModel(pP, mTruck, tBreak, tMax, cB, velocity, currentGear, alpha, deltaT);
-    
+            
+
             if velocity > maxVelocity || velocity < minVelocity
-                disp('Breaking, velocity limits not valid anymore.');
+                % disp('Breaking, velocity limits not valid anymore.');
                 break; 
             end
     
             % evaluate NN
-            [pP, deltaGear] = neuralNetwork(velocity, alpha, tBreak, wIH, wHO);
+            [pP, deltaGear] = neuralNetwork(velocity, alpha, tBreak, wIH, wHO)
     
+
             if counterForGear > 7
                 currentGear = currentGear + deltaGear;
                 counterForGear = 0;
             end
     
             % distance traveled during timestep deltaT
-            distanceTravelled = velocity * t * cos(alpha);
+            distanceTravelled = velocity * deltaT * cos(alpha);
             totalDistanceTraveled = totalDistanceTraveled + distanceTravelled; 
     
             % increase Gear counter

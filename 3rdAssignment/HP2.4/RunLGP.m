@@ -12,7 +12,7 @@ numberOfConstantRegisters = 3;
 
 numberOfOperators = 4; 
 
-numberOfGenerations = 5000; 
+numberOfGenerations = 30000; 
 
 minNumberOfInstructions = 5; 
 maxNumberOfInstructions = 25; 
@@ -20,8 +20,6 @@ maxNumberOfInstructions = 25;
 data = LoadFunctionData();
 
 population = InitializePopulation(populationSize, minNumberOfInstructions, maxNumberOfInstructions, numberOfOperators, numberOfVariableRegisters, numberOfConstantRegisters);
-% works
-
 
 globalCostList = zeros(1, numberOfGenerations);
 
@@ -29,7 +27,7 @@ globalMaximumFitness = 0;
 
 for generation = 1:numberOfGenerations
 
-    if mod(generation, 100) == 0
+    if mod(generation, numberOfGenerations/100) == 0
         fprintf('%d percent done \n', fix(generation/numberOfGenerations*100));
     end
 
@@ -42,7 +40,6 @@ for generation = 1:numberOfGenerations
 
         % in this generation
         if (fitnessList(i) > maximumFitness ) 
-            % disp('bestChromosome updatet');
             maximumFitness  = fitnessList(i);
             iBestIndividual = i;
             bestChromosome = chromosome;
@@ -50,8 +47,6 @@ for generation = 1:numberOfGenerations
 
         % over all generations 
         if (fitnessList(i) > globalMaximumFitness)
-            disp("executed at generation");
-            disp(generation)
             globalMaximumFitness = fitnessList(i);
             globalBestChromosome = chromosome; 
         end
@@ -90,20 +85,22 @@ for generation = 1:numberOfGenerations
 
 end
 
+disp('Maximal fitness found: ');
 disp(globalMaximumFitness);
 
-% test = EvaluateIndividual(bestChromosome, data, numberOfVariableRegisters, numberOfConstantRegisters);
-% disp(test);
 
 % 
 % PLOTTTING
 % 
 
+% plotting fitness
 figure(1);
-plot(globalCostList)
-% 
-% return; 
+plot(globalCostList);
+xlabel('Generation');
+ylabel('Best fitness'); 
 
+
+% plotting approximation
 yEstimateList = zeros(1, length(data));
 
 for iDataPoint = 1:length(data)
@@ -135,11 +132,15 @@ legend('y_{true}', 'y_{estimate}');
 
 
 
-% safe best chromosome 
-filename = 'BestChromosome.mat';
+save('BestChromosomeTemp.m', 'globalBestChromosome', '-ascii');
 
-% Save the array to a MAT file
-save(filename, 'globalBestChromosome');
+
+
+% % safe best chromosome 
+% filename = 'BestChromosome.mat';
+% 
+% % Save the array to a MAT file
+% save(filename, 'globalBestChromosome');
         
 
 

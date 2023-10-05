@@ -37,8 +37,6 @@ yEstimate = unionOfRegisters{1};
 disp('Final function: ')
 disp(yEstimate);
 
-
-
 % so, the function we are looking for, is: 
 % (x*(x^2 - x)+1) / (x*(x*x-x) +1 + x^2*(x^2-x))
 
@@ -48,11 +46,6 @@ numberOfVariableRegisters = 3;
 numberOfConstantRegisters = 3; 
 
 data = LoadFunctionData(); 
-
-
-disp('with an error of: ')
-fitness = EvaluateIndividual(globalBestChromosome, data, 3, 3);
-disp(1/fitness);
 
 yEstimateList = zeros(1, length(data));
 
